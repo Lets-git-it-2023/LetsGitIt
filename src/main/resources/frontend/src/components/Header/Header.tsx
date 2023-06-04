@@ -8,10 +8,16 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { GoPrimitiveDot } from "react-icons/go";
 
 const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  width: 100vw;
+  width: 100%;
+  max-width: 1280px;
   height: 100px;
   @media (max-width: 768px) {
     align-items: flex-end;
@@ -73,7 +79,7 @@ const InfoContainer = styled.div`
   }
 `;
 
-const Dot = styled.div`
+const NewAlert = styled.div`
   display: inline-block;
   width: 12px;
   height: 12px;
@@ -200,9 +206,9 @@ const Header = () => {
   ];
 
   return (
-    <>
+    <Wrapper>
       {isLogIn ? (
-        <Wrapper>
+        <HeaderContainer>
           <NavWrapper>
             {headers.map((menu, index) => (
               <NavStyle to={menu.path} key={index}>
@@ -211,9 +217,9 @@ const Header = () => {
             ))}
           </NavWrapper>
           <InfoContainer>
-            <Dot className={newMessage ? "new" : ""} />
+            <NewAlert className={newMessage ? "new" : ""} />
             <button onClick={() => navigate("/received/messages")}>쪽지</button>
-            <Dot className={newAlert ? "new" : ""} />
+            <NewAlert className={newAlert ? "new" : ""} />
             <button onClick={() => setShowNotice(true)}>알림</button>
           </InfoContainer>
 
@@ -243,14 +249,14 @@ const Header = () => {
               </MenuWrapper>
             )}
           </HamburgerWrapper>
-        </Wrapper>
+        </HeaderContainer>
       ) : (
-        <Wrapper>
+        <HeaderContainer>
           <ButtonContainer>
             <Button>로그인</Button>
             <Button>회원가입</Button>
           </ButtonContainer>
-        </Wrapper>
+        </HeaderContainer>
       )}
 
       {showNotice && (
@@ -259,7 +265,7 @@ const Header = () => {
           setShowNotice={setShowNotice}
         />
       )}
-    </>
+    </Wrapper>
   );
 };
 
