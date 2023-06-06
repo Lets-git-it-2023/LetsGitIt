@@ -22,6 +22,8 @@ import CheckMatchng from "./pages/home/CheckMatchng";
 import SelectMatching from "./pages/home/SelectMatching";
 import Home from "./pages/home/Home";
 import { LoginPage } from "./LoginPage";
+import Project from "./pages/project/Project";
+import Revise from "./pages/project/Revise";
 import RecruitmentComplete from "./pages/match/RecruitmentComplete";
 import { ProjectBoard } from "./pages/projectBoard/ProjectBoard";
 
@@ -46,10 +48,12 @@ function App() {
           <Route path="/received/applications" element={<Applications />} />
         </Route>
         <Route path="/matching" element={<Matching />} />
-        <Route element={<Board />}>
+        {/* <Route element={<Board />}>
           <Route path="/project" />
           <Route path="/community" />
-        </Route>
+        </Route> */}
+        <Route element={<Project />} path="/project" />
+        <Route element={<Revise />} path="/project/process/:id" />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/TeamMatchingCreate" element={<TeamMatchingCreate />} />
         <Route path="/matching/:id" element={<TeamMatchingPost />} />
