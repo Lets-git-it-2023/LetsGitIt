@@ -6,6 +6,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  width: 100%;
 `;
 const WriteCommentBox = styled.div`
   display: flex;
@@ -24,6 +25,7 @@ const WriteCommentBox = styled.div`
 const CommentInputContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
   span {
     margin-top: 2px;
   }
@@ -52,7 +54,7 @@ const WriteButton = styled.button`
 `;
 
 const CommentInput = styled.input`
-  width: 600px;
+  max-width: 600px;
   height: 30px;
 `;
 
@@ -63,7 +65,11 @@ const Avatar = styled.img`
   border-radius: 50%;
   margin-right: 10px;
 `;
-const CommentInputBox = () => {
+interface CommentInputBoxProps {
+  writeComment: (comment: string) => void;
+}
+
+const CommentInputBox = ({writeComment} : CommentInputBoxProps) => {
   const [user, setUser] = useState({
     username: "username",
     userImg: null
@@ -74,10 +80,15 @@ const CommentInputBox = () => {
     event.preventDefault();
     setCommentInput(event.target.value);
   };
+
+  const handleWriteComment = () => {
+    writeComment(commentInput);
+    setCommentInput("");
+  }
   return (
     <Wrapper>
       <Top>
-        <WriteButton>작성</WriteButton>
+        <WriteButton onClick={handleWriteComment}>작성</WriteButton>
       </Top>
       <WriteCommentBox>
         <Avatar src={basicProfile} />
