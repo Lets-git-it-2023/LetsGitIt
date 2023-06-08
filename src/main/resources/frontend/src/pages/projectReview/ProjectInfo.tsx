@@ -6,34 +6,46 @@ const Wrapper = styled.div`
   flex-direction: column;
   color: var(--color-sub-1);
   margin-bottom: 10px;
+  width: 100%;
 `;
 
 const ContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 10px;
-  margin: 10px 0 0 10px;
-`;
-
-const List = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(auto, max-content);
+  row-gap: 20px;
+  padding: 10px;
   font-weight: 450;
   margin-bottom: 20px;
+  align-items: start;
   font-size: 0.94rem;
-  span {
-    font-weight: 400;
+  p{
+    margin: 0;
+    justify-content: flex-start;
   }
+  span {
+    display: flex;
+    margin: 0;
+    font-weight: 400;
+    justify-content: flex-end;
+    white-space: nowrap;
+    @media (max-width: 1220px) {
+      white-space: normal; 
+    }
+  }
+
 `;
 
 const Line = styled.hr`
   flex-grow: 1;
   height: 0px;
+  width: 60%;
   border-top: 0.5px solid var(--color-sub-1);
 `;
 
 const Top = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: row;
   font-size: 0.94rem;
   font-weight: 550;
@@ -55,9 +67,8 @@ const LangList = styled.div`
 const LangContainer = styled.div`
   display: flex;
   flex-direction: row;
-  margin-left: 5px;
+  gap: 5px;
   flex-wrap: wrap;
-  width: 175px;
   justify-content: flex-end;
 `;
 
@@ -66,7 +77,7 @@ const ProjectInfo = () => {
   const [process, setProcess] = useState("2023.03.01 ~ 2023.04.12");
   const [langsTools, setLangsTools] = useState([
     "JAVA",
-    "Python",
+    "JAVA",
     "JAVA",
     "JAVA"
   ]);
@@ -77,20 +88,14 @@ const ProjectInfo = () => {
         <span>프로젝트 정보</span> <Line />
       </Top>
       <ContentContainer>
-        <List>
-          분야 <span>{field}</span>
-        </List>
-        <List>
-          진행 기간 <span>{process}</span>
-        </List>
-        <List>
-          언어/툴
+          <p>분야</p> <span>{field}</span>
+          <p>진행 기간</p> <span>{process}</span>
+          <p>언어/툴</p>
           <LangContainer>
             {langsTools.map((items) => (
               <LangList>{items}</LangList>
             ))}
           </LangContainer>
-        </List>
       </ContentContainer>
     </Wrapper>
   );

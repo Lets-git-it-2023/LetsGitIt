@@ -9,6 +9,8 @@ const Wrapper = styled.div`
   background-color: var(--color-main-4);
   width: 100%;
   height: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
   border-radius: 20px;
   color: var(--color-sub-1);
   p {

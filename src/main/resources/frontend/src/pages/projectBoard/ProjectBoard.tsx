@@ -16,6 +16,7 @@ const Wrapper = styled.div`
   grid-template-rows: repeat(5, minmax(auto, max-content));
   gap: 40px;
   margin-bottom: 100px;
+  width: 100%;
   grid-template-areas:
     "back back back back"
     "team title title title"
@@ -26,13 +27,14 @@ const Wrapper = styled.div`
 
 const BackContainer = styled.div`
   display: flex;
+  width: 100%;
   grid-area: back;
 `;
 
 const TeamContainer = styled.div`
   display: flex;
   grid-area: team;
-  width: 290px;
+  max-width: 290px;
   height: 740px;
   background-color: var(--color-sub-2);
 `;
@@ -40,12 +42,14 @@ const TeamContainer = styled.div`
 const TitleContainer = styled.div`
   display: flex;
   grid-area: title;
+  width: 100%;
+  box-sizing: border-box;
   align-items: center;
   justify-content: space-between;
   background-color: var(--color-sub-2);
   border-radius: 14px;
   color: var(--color-sub-1);
-  width: 950px;
+  max-width: 950px;
   height: 50px;
   padding: 12px 20px;
   font-size: 1.5rem;
@@ -60,38 +64,37 @@ const TitleContainer = styled.div`
 `;
 
 const DdayContainer = styled.div`
-  width: 400px;
-  height: 272px;
+  max-width: 400px;
   grid-area: dday;
 `;
 
 const LangContainer = styled.div`
   display: flex;
   grid-area: lang;
-  width: 510px;
+  max-width: 510px;
   height: 127px;
 `;
 
 const ChatContainer = styled.div`
-  width: 510px;
+  max-width: 510px;
   height: 330px;
   grid-area: chat;
 `;
 
 const CommitGraphContainer = styled.div`
-  width: 180px;
+  max-width: 180px;
   height: 330px;
   grid-area: month;
 `;
 
 const TodayCommitContainer = styled.div`
-  width: 180px;
+  max-width: 180px;
   height: 330px;
   grid-area: today;
 `;
 
 const CommitLevelContainer = styled.div`
-  width: 510px;
+  max-width: 510px;
   height: 105px;
   grid-area: level;
 `;

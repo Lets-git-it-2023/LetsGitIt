@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 const TabTable = styled.table`
   color: var(--color-sub-1);
-  width: 100%;
   border-collapse: collapse;
   justify-content: center;
+  width: 90%;
 `;
 
 const TabHeader = styled.th<{ active: boolean; color: string }>`
@@ -54,6 +58,7 @@ export default function HomeTab() {
   };
 
   return (
+    <Wrapper>
     <TabTable>
       <thead>
         <tr>
@@ -82,5 +87,6 @@ export default function HomeTab() {
         </tr>
       </tbody>
     </TabTable>
+    </Wrapper>
   );
 }

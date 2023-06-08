@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import styled, { css, keyframes } from "styled-components";
 
 const Wrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
   color: var(--color-sub-1);
+  width: 600px;
   @media (max-width: 768px) {
     padding-left: 0;
   }
@@ -65,6 +69,7 @@ const Text = styled.p`
   font-size: 3.125rem;
   font-weight: bold;
   margin-bottom: 20px;
+  margin-top: 0;
 `;
 
 const moveAnimation = keyframes`
@@ -138,7 +143,6 @@ const ProgressBar = () => {
 const AfterProgressWrapper = styled.div`
   display: flex;
   flex-direction: column;
-
   > :nth-child(2),
   > :nth-child(3) {
     margin-left: 97px;
