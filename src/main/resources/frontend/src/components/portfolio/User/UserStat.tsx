@@ -2,16 +2,19 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(1, 1fr);
   color: var(--color-sub-1);
-  flex-direction: row;
-  margin: 40px 0 20px 30px;
+  width: 100%;
+  gap: 20px;
+  justify-items: flex-start;
+  max-height: 450px;
 `;
 
 const StatComponent = styled.div`
   display: flex;
   flex-direction: column;
-  margin-right: 200px;
   p {
     font-size: 1.5rem;
     font-weight: 550;

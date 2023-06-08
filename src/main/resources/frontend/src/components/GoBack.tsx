@@ -6,6 +6,7 @@ const Wrapper = styled.div`
   color: var(--color-sub-1);
   font-size: 1rem;
   font-weight: 500;
+  width: 100%;
   cursor: pointer;
   svg {
     width: 15px;

@@ -4,34 +4,35 @@ import UserSkill from "./User/UserSkill";
 import ProjectDetail from "./Project/ProjectDetail";
 import { BiArrowBack } from "react-icons/bi";
 import UserProfile from "./User/UserProfile";
-import {Project, ProjectViewMode} from "./Project/Project";
+import { Project, ProjectViewMode } from "./Project/Project";
 import UserStat from "./User/UserStat";
 
 const PortfolioContainer = styled.div<{ backgroundColor: boolean }>`
   display: grid;
   grid-template-rows: ${({ backgroundColor }) =>
-    backgroundColor ? 'repeat(3, minmax(min-content, 2rem))' : 'repeat(2, minmax(min-content, 2rem))'};
+    backgroundColor
+      ? "repeat(3, minmax(min-content, 2rem))"
+      : "repeat(2, minmax(min-content, auto))"};
   grid-template-columns: ${({ backgroundColor }) =>
-    backgroundColor ? '30% 50%' : '80%'};
+    backgroundColor ? "30% 50%" : "1fr"};
   gap: 1rem;
   grid-template-areas: ${({ backgroundColor }) =>
-    backgroundColor ? 
-      `"profile stat"
+    backgroundColor
+      ? `"profile stat"
        "profile skill"
-       "project project"` 
-      : 
-      `"back"
+       "project project"`
+      : `"back"
        "detail"`};
-  width: 70%;
-  justify-content: center; 
-  align-items: center; 
-  padding: 40px 100px;
+  width: 100%;
+  max-width: 1280px;
+  justify-content: center;
+  align-items: center;
   background-color: ${({ backgroundColor }) =>
-    backgroundColor ? 'var(--color-sub-2)' : 'none'};
+    backgroundColor ? "var(--color-sub-2)" : "none"};
   color: var(--color-sub-1);
   border-radius: 20px;
+  padding-top: 30px;
 `;
-
 
 const UserProfileContainer = styled.div`
   display: flex;
@@ -40,7 +41,7 @@ const UserProfileContainer = styled.div`
 `;
 
 const Back = styled(BiArrowBack)`
-grid-area: back;
+  grid-area: back;
   fill: #ffffff;
   display: flex;
   height: 20px;
@@ -52,12 +53,13 @@ grid-area: back;
 const StatContainer = styled.div`
   display: flex;
   grid-area: stat;
+  width: 100%;
+  height: 10px;
 `;
 
 const SkillContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 10px 0 20px 30px;
   grid-area: skill;
   p {
     font-size: 1.5rem;
@@ -69,6 +71,7 @@ const SkillContainer = styled.div`
 const ProjectContainer = styled.div`
   display: flex;
   grid-area: project;
+  width: 100%;
 `;
 
 interface ProjectItemInterface {
@@ -98,7 +101,7 @@ export const PortfolioComplete = ({
 
   const removeBackgroundColor = () => {
     setBackgroundColor(!backgroundColor);
-  }
+  };
 
   const goBack = () => {
     setShowDetail(false);
@@ -113,18 +116,17 @@ export const PortfolioComplete = ({
     onRemoveSelectedProject(id);
   };
 
-  const reloadPortfolio = () =>{
+  const reloadPortfolio = () => {
     onClickReImportProject();
-  }
+  };
 
   return (
     <>
       {showDetail ? (
-        <PortfolioContainer 
-          backgroundColor={false}>
+        <PortfolioContainer backgroundColor={false}>
           <Back onClick={goBack} />
           <ProjectDetail
-          type=""
+            type=""
             title={onClickProject?.title || ""}
             content={onClickProject?.content || ""}
             removeBackgroundColor={removeBackgroundColor}
@@ -132,45 +134,41 @@ export const PortfolioComplete = ({
         </PortfolioContainer>
       ) : (
         <PortfolioContainer backgroundColor={true}>
+          <UserProfileContainer>
+            <UserProfile />
+          </UserProfileContainer>
 
-            <UserProfileContainer>
-              <UserProfile />
-            </UserProfileContainer>
+          <StatContainer>
+            <UserStat />
+          </StatContainer>
 
-              <StatContainer>
-                <UserStat />
-              </StatContainer>
+          <SkillContainer>
+            <p>Skills</p>
+            <UserSkill type="portfolio" />
+          </SkillContainer>
 
-              <SkillContainer>
-                <p>Skills</p>
-                <UserSkill type="portfolio" />
-              </SkillContainer>
-   
-            <ProjectContainer>
-              <Project
-                selectedProject={selectedProject}
-                handleProjectClick={handleProjectClick}
-                removeProject={removeProject}
-                reloadPortfolio={reloadPortfolio}
-              />
-            </ProjectContainer>
-         
+          <ProjectContainer>
+            <Project
+              selectedProject={selectedProject}
+              handleProjectClick={handleProjectClick}
+              removeProject={removeProject}
+              reloadPortfolio={reloadPortfolio}
+            />
+          </ProjectContainer>
         </PortfolioContainer>
       )}
     </>
   );
 };
 
-
 export const PortfolioView = ({ selectedProject }: PortfolioViewProps) => {
-
   const [showDetail, setShowDetail] = useState(false);
   const [onClickProject, setOnClickProject] = useState<ProjectItemInterface>();
   const [backgroundColor, setBackgroundColor] = useState(true);
 
   const removeBackgroundColor = () => {
     setBackgroundColor(!backgroundColor);
-  }
+  };
 
   const goBack = () => {
     setShowDetail(false);
@@ -183,46 +181,38 @@ export const PortfolioView = ({ selectedProject }: PortfolioViewProps) => {
 
   return (
     <>
-    {showDetail ? (
-      <PortfolioContainer 
-        backgroundColor={false}>
-        <Back onClick={goBack} />
-        <ProjectDetail
-        type="read"
-          title={onClickProject?.title || ""}
-          content={onClickProject?.content || ""}
-          removeBackgroundColor={removeBackgroundColor}
-        />
-      </PortfolioContainer>
-    ) : (
-        <PortfolioContainer
-        backgroundColor={true}>
-   
-            <UserProfileContainer>
-              <UserProfile />
-            </UserProfileContainer>
-            
-              <StatContainer>
-                <UserStat />
-              </StatContainer>
-              <SkillContainer>
-                <p>Skills</p>
-                <UserSkill type="portfolio" />
-              </SkillContainer>
-           
-         
-            <ProjectContainer>
-              <ProjectViewMode
-                selectedProject={selectedProject}
-                handleProjectClick={handleProjectClick}
-              />
-            </ProjectContainer>
-
+      {showDetail ? (
+        <PortfolioContainer backgroundColor={false}>
+          <Back onClick={goBack} />
+          <ProjectDetail
+            type="read"
+            title={onClickProject?.title || ""}
+            content={onClickProject?.content || ""}
+            removeBackgroundColor={removeBackgroundColor}
+          />
         </PortfolioContainer>
-        )}
-        </>
+      ) : (
+        <PortfolioContainer backgroundColor={true}>
+          <UserProfileContainer>
+            <UserProfile />
+          </UserProfileContainer>
+
+          <StatContainer>
+            <UserStat />
+          </StatContainer>
+          <SkillContainer>
+            <p>Skills</p>
+            <UserSkill type="portfolio" />
+          </SkillContainer>
+
+          <ProjectContainer>
+            <ProjectViewMode
+              selectedProject={selectedProject}
+              handleProjectClick={handleProjectClick}
+            />
+          </ProjectContainer>
+        </PortfolioContainer>
+      )}
+    </>
   );
- 
 };
-
-

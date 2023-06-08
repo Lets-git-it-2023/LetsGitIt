@@ -12,6 +12,7 @@ const TabWrapper = styled.div`
   align-items: center;
   margin-top:50px;
   margin-bottom: 50px;
+  box-sizing: border-box;
   width: 100%;
 `;
 
@@ -22,6 +23,16 @@ const TabContainer = styled.div`
   width: 100%;
   align-items: center;
   justify-content: center;
+  position: relative;
+`;
+
+const TabContentContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1280px;
+  box-sizing: border-box;
   
 `;
 
@@ -42,7 +53,7 @@ const TabList = styled.div<TabListProps>`
   font-weight: 600;
   border: none;
   cursor: pointer;
-  position: relative;
+  
   &.active {
     color: black;
     background-color: var(--color-main-4);
@@ -52,13 +63,13 @@ const TabList = styled.div<TabListProps>`
   }
 `;
 
-const ProfileComment = styled.div`
+const PortFolioComment = styled.div`
   display: flex;
   align-items: center;
   color: var(--color-main-4);
   position: absolute;
-  top: 15%;
-  left: -2%;
+  top: 0;
+  right: 7%;
   width: 100%;
   &.editMode {
     display: none;
@@ -70,8 +81,8 @@ const ArchiveComment = styled.div`
   align-items: center;
   position: absolute;
   color: var(--color-main-4);
-  top: 17.5%;
-  left: 63%;
+  top: 35%;
+  left: 64%;
   width: 100%;
   &.editMode {
     display: none;
@@ -116,6 +127,16 @@ const MyPageTab = () => {
   return (
     <TabWrapper>
       <TabContainer>
+      {isInit && (
+        <PortFolioComment className={isInit ? "" : "editMode"}>
+          <span style={{ marginTop: "23px" }}>
+            GitHub의 Repository에서 프로젝트를 가져와서
+            <br />
+            개발 포트폴리오를 만들어보세요
+          </span>
+          <RArrowIcon />
+        </PortFolioComment>
+      )}
         {tabList.map((tab, index) => {
           return (
             <TabList
@@ -126,25 +147,18 @@ const MyPageTab = () => {
             </TabList>
           );
         })}
-      </TabContainer>
-      {isInit && (
-        <ProfileComment className={isInit ? "" : "editMode"}>
-          <span style={{ marginTop: "23px" }}>
-            GitHub의 Repository에서 프로젝트를 가져와서
-            <br />
-            개발 포트폴리오를 만들어보세요
-          </span>
-          <RArrowIcon />
-        </ProfileComment>
-      )}
-      {isInit && (
+        {isInit && (
         <ArchiveComment className={isInit ? "" : "editMode"}>
           <ArrowIcon />
           <span>렛츠깃잇에서의 활동들을 모아볼 수 있어요</span>
         </ArchiveComment>
       )}
-
-      {tabList[activeTab].Content}
+      </TabContainer>
+      
+      
+      <TabContentContainer>
+        {tabList[activeTab].Content}
+      </TabContentContainer>
 
     </TabWrapper>
   );

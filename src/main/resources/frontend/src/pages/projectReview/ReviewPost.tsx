@@ -18,27 +18,30 @@ const Wrapper = styled.div`
 `;
 
 const PostBox = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  width: 100%;
+  max-width: 1280px;
+  grid-template-columns: 1fr 5.1fr 1.7fr;
+  grid-template-rows: repeat(4, auto);
   padding: 10px;
   background-color: var(--color-sub-2);
   border-radius: 20px;
-  width: 1200px;
-  justify-content: center;
-`;
-const Middle = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 2;
-`;
-const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
+  column-gap: 40px;
+  grid-template-areas:
+    "header header header"
+    "list content info"
+    "list content info"
+    "list comment info";
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr 5.1fr 1fr;
+    column-gap: 10px;
+  }
 `;
 const PositionList = styled.div`
   display: flex;
   flex-direction: column;
   text-align: right;
+  grid-area: list;
   flex: 1;
   padding: 0 20px 0 20px;
   color: var(--color-sub-1);
@@ -51,6 +54,7 @@ const PositionList = styled.div`
 const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
+  grid-area: content;
   padding: 0 20px 0 20px;
   align-items: start;
   color: var(--color-sub-1);
@@ -74,23 +78,23 @@ const PostInfoContainer = styled.div`
 `
 
 const CommentContainer = styled.div`
-  padding: 0 20px 0 20px;
+  padding: 0 20px;
+  grid-area: comment;
+  margin-bottom: 40px;
   p {
-    font-size: 16px;
+    font-size: 1rem;
     color: var(--color-sub-1);
   }
 `;
 
 const ProjectInfoContainer = styled.div`
-  display: flex;
-  flex: 3;
-  width: 300px;
-  flex-direction: column;
-  padding: 0 20px 0 20px;
+  width: 100%;
+  grid-area: info;
 `;
 
 const Head = styled.div`
   display: inline-flex;
+  grid-area: header;
   margin-top: 40px;
   margin-bottom: 20px;
 `;
@@ -100,6 +104,8 @@ const ButtonContainer = styled.div`
   flex-direction: row;
   margin-bottom: 40px;
   align-items: left;
+  flex-wrap: wrap;
+  gap: 10px;
   button {
     cursor: pointer;
     font-size: 15px;
@@ -107,7 +113,6 @@ const ButtonContainer = styled.div`
     border: none;
     height: 32px;
     text-align: center;
-    margin-right: 10px;
     border-radius: 10px;
     
   }
@@ -140,12 +145,6 @@ const StateButton = styled.button`
       }
       
     }
-`;
-
-const Left = styled.div`
-    display: flex;
-    margin-top: 95px;
-    width: 150px;
 `;
 
 const ReviewPost = () => {
@@ -193,21 +192,31 @@ const ReviewPost = () => {
     setBookMark(!bookMark);
   };
 
+  const writeComment = ( comment : string) => {
+    let newComment = {
+      //profileImg: img,
+      username: "user1",
+      content: comment,
+      time: "2023.03.28 12:05",
+      reply: []
+    };
+    setComments([...comments, newComment]);
+  };
+
   return (
     <Wrapper>
       <PostBox>
         <Head>
           <GoBack />
         </Head>
-        <ContentWrapper>
-            <Left>
+        
           <PositionList>
             {positions.map((item)=>(
                 <span>{item}</span>
             ))}
           </PositionList>
-          </Left>
-          <Middle>
+   
+
             <ContentContainer>
               <h3>{title}</h3>
               <PostInfoContainer>
@@ -217,10 +226,10 @@ const ReviewPost = () => {
                <ReviewContainer type="" username = "user1" PostionName="IOS" content="contentsd"/>
                <ReviewContainer type="write" username = "user1" PostionName="IOS" content="contentsd"/>
             </ContentContainer>
+
             <CommentContainer>
-              <>
               <p>댓글 {comments.length}개</p>
-              <CommentInputBox />
+              <CommentInputBox writeComment={writeComment}/>
               {
                 comments.map((comment, idx) => (
                   <CommentList
@@ -232,9 +241,8 @@ const ReviewPost = () => {
                   />
                 ))
               }
-              </>
             </CommentContainer>
-          </Middle>
+
           <ProjectInfoContainer>
             <ButtonContainer>
               {isWritten ? 
@@ -255,7 +263,6 @@ const ReviewPost = () => {
             <ProjectInfo />
             <ProjectTeam/>
           </ProjectInfoContainer>
-        </ContentWrapper>
       </PostBox>
     </Wrapper>
   );

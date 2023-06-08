@@ -4,11 +4,14 @@ import Select from "react-select";
 import languageData from "../../../resource/languageData.json";
 
 const Wrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 750px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: repeat(auto-fill, auto);
+    width: 100%;
     margin-bottom: 100px;
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+  }
 `;
 const InputList = styled.div`
   border-left: solid 2px var(--color-sub-1);

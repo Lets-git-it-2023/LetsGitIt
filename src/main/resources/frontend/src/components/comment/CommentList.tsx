@@ -93,6 +93,8 @@ const ReplyContainer = styled.div`
 const ReplyBoxContainer = styled.div`
   display: flex;
   margin-top: 10px;
+  width: 100%;
+  min-width: 300px;
 `;
 
 interface CommentInterface {
@@ -118,6 +120,8 @@ const CommentList = ({
 }: CommentPropsInterface) => {
   const [showReply, setShowReply] = useState(true);
   const [showReplyBox, setShowReplyBox] = useState(false);
+  const [commentReply, setCommentReply] = useState(reply);
+
   const onClickReply = () => {
     setShowReply(!showReply);
   };
@@ -125,6 +129,20 @@ const CommentList = ({
   const onClickWriteReply = () => {
     setShowReplyBox(!showReplyBox);
   };
+
+  const writeComment = ( comment : string) => { 
+    // 대댓글 수정
+    let newComment = {
+      //profileImg: img,
+      username: "user1",
+      content: comment,
+      time: "2023.03.28 12:05",
+      reply: []
+    };
+    setCommentReply([...commentReply, newComment]);
+    console.log(commentReply);
+  };
+  
 
   return (
     <Wrapper>
@@ -139,26 +157,24 @@ const CommentList = ({
             <span className="content">{content}</span>
             <CommentBottom>
               <span onClick={onClickWriteReply}>답글쓰기</span>
-              {reply.length > 0 ? (
+              {commentReply.length > 0 ? (
                 <ReplyContainer onClick={onClickReply}>
-                  답글 {reply.length} 개
+                  답글 {commentReply.length} 개
                   {showReply ? <BsFillCaretUpFill /> : <BsFillCaretDownFill />}
                   {!showReply &&
                     reply.map((item, idx) => (
                       <ReplyAvatar key={idx} src={basicProfile} />
                     ))}
                 </ReplyContainer>
-              ) : (
-                ""
-              )}
+              ) : ( null )}
             </CommentBottom>
             {showReplyBox && (
               <ReplyBoxContainer>
-                <CommentInputBox />
+                <CommentInputBox writeComment={writeComment}/>
               </ReplyBoxContainer>
             )}
             {showReply &&
-              reply.map((item, idx) => (
+              commentReply.map((item, idx) => (
                 <CommentBox key={idx}>
                   <Avatar src={basicProfile} />
                   <ContentContainer>

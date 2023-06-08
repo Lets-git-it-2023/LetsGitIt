@@ -9,7 +9,7 @@ const PortfolioContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 80%;
+  width: 100%;
 `;
 
 const Button = styled.button`
@@ -29,10 +29,9 @@ const ButtonContainer = styled.div`
   flex-direction: row;
   align-items: center;
   margin-top: 10px; 
-  margin-right: 50px; /* Adjust the right margin as needed */
-  gap: 15px; /* Add gap between buttons */
-  position: absolute; /* Add absolute positioning */
-  right: 18%; /* Position it at the right side */
+  gap: 15px;
+  position: absolute; 
+  right: 5%; 
 `;
 
 
@@ -66,40 +65,30 @@ const TitleContainer = styled.div`
   display: flex;
   color: var(--color-sub-1);
   padding: 5px 5px 0px 50px;
-  font-size: 32px;
-  width: 100%;
-  
+  font-size: 2rem;
   ${Hr} {
     margin-bottom: 5px;
-  }
-
-  @media (max-width: 768px) {
-    width: 100%;
   }
 `;
 
 const Content = styled.div`
   border: none;
   color: var(--color-sub-1);
-  font-size: 15px;
   display: flex;
-  width: 100%;
   background-color: var(--color-sub-2);
   padding: 30px 5px 5px 50px;
   font-size: 15px;
   margin-left: 50px;
   min-height: 500px;
   @media (max-width: 768px) {
-    width: 80%;
+   
   }
 `;
 
 const EditorWrapper = styled.div`
   display: flex;
-  background-color: black;
   padding: 0px 0px 5px 50px;
-  margin-bottom: 10px;
-  width: 100%;
+  margin-bottom: 50px;
   height: 500px;
   @media (max-width: 768px) {
     height: 350px;
@@ -111,7 +100,6 @@ const ProjectDetailInfoContainer = styled.div`
   justify-content: center;
   margin-bottom: 20px;
   margin-left: 50px;
-  width: 100%;
 `;
 
 const DetailInputContainer = styled.div`
@@ -120,7 +108,6 @@ const DetailInputContainer = styled.div`
 
 const ProjectStatus = styled.div`
   height: 65px;
-  width: 750px;
   display: flex;
   background-color: var(--color-sub-2);
   border-top: 2px solid var(--color-sub-3);
@@ -221,14 +208,14 @@ const ProjectDetail = ({ type, title, content, removeBackgroundColor }: PropsInt
           <EditorWrapper>
             <Editor content={content} type="project"/>
           </EditorWrapper>
-          {/*<ProjectInfoContainer>
+          <ProjectInfoContainer>
             <ProjectStatus>
               <p>• 프로젝트 정보</p>
             </ProjectStatus>
             <DetailInputContainer>
               <ProjectDetailInput />
             </DetailInputContainer>
-          </ProjectInfoContainer>*/}
+          </ProjectInfoContainer>
           </>
         ) : (
           <>

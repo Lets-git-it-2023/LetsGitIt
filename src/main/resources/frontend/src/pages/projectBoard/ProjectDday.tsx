@@ -11,6 +11,9 @@ const Wrapper = styled.div`
   font-size: 0.93rem;
   border-radius: 20px;
   background-color: var(--color-sub-2);
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
 `;
 
 const GraphContainer = styled.div`

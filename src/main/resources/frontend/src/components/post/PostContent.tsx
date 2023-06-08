@@ -10,12 +10,14 @@ const Wrapper = styled.div`
     color: var(--color-sub-1);
     border-bottom: 2px solid var(--color-sub-1);
     position: relative;
+    width: 100%;
 `;
 
 const Top = styled.div`
     display: flex;
     flex-direction: column;
     text-align: left;
+    width: 100%;
     font-size: 13px;
     margin-bottom: 30px;
     p{
@@ -28,16 +30,19 @@ const Top = styled.div`
 
 const ContentContainer = styled.div`
     text-align: left;
+    width: 100%;
     margin-bottom: 30px;
 `;
 
 const InfoContainer = styled.div`
     display: flex;
+    width: 100%;
     justify-content: space-between;
 `;
 
 const ProjectReviewContainer = styled.div<{ isVisible: boolean }>`
     display: ${props => props.isVisible ? 'inline-block' : 'none'};
+    width: 100%;
     text-align: right;
     text-decoration: underline;
     color: var(--color-main-4);
@@ -65,14 +70,15 @@ const PostContent = () => {
             <Top>
                 <p>{title}</p>
                 <InfoContainer>
-                <span>작성일 {date}</span>
-            <PostInfo />
-            </InfoContainer>
+                    <span>작성일 {date}</span>
+                    <PostInfo />
+                 </InfoContainer>
             </Top>
             
             <ProjectReviewContainer isVisible={state}>
                     프로젝트 후기글 보러가기 <GrFormNextLink/>
             </ProjectReviewContainer>
+            
             <ContentContainer>
                 {content}
             </ContentContainer>
