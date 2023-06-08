@@ -26,6 +26,30 @@ const HeaderContainer = styled.div`
     padding: 1rem;
   }
 `;
+
+const LogoContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  margin-left: 30px;
+  p{
+    margin: 0;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 24px;
+  }
+  button{
+    width: 80px;
+    height: 24px;
+    color: var(--color-sub-1);
+    background-color: var(--color-sub-4);
+    border: none;
+    border-radius: 30px;
+    text-align: center;
+    cursor: pointer;
+  }
+`;
 const NavWrapper = styled.div`
   display: flex;
   width: 400px;
@@ -205,10 +229,18 @@ const Header = () => {
     { name: "마이페이지", path: "/mypage" }
   ];
 
+  const logout = () => {
+
+  }
+
   return (
     <Wrapper>
       {isLogIn ? (
         <HeaderContainer>
+          <LogoContainer>
+            <p>Let's Git It</p>
+            <button onClick={logout}>로그아웃</button>
+          </LogoContainer>
           <NavWrapper>
             {headers.map((menu, index) => (
               <NavStyle to={menu.path} key={index}>
