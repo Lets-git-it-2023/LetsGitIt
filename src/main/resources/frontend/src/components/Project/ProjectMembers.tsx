@@ -9,6 +9,9 @@ const ReviseTeam = styled.div`
   padding: 18px 18px 32px;
   border-radius: 20px;
   height: min-content;
+  @media (max-width: 768px) {
+    background-color: transparent;
+  }
 `;
 const TeamTitle = styled.div`
   display: flex;
@@ -18,6 +21,9 @@ const TeamTitle = styled.div`
 const TeamList = styled.ul`
   all: unset;
   list-style: none;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 const TeamMember = styled.li`
   display: flex;
