@@ -11,26 +11,75 @@ const Wrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
 `;
+
 const HeaderContainer = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 2fr 5fr 1fr;
+  grid-template-rows: 1fr;
   align-items: center;
-  justify-content: flex-end;
+  padding: 0 1rem;
   width: 100%;
   max-width: 1280px;
   height: 100px;
-  @media (max-width: 768px) {
-    align-items: flex-end;
+  @media (max-width: 768px) { 
+    display: flex;
     flex-direction: column;
     height: auto;
     padding: 1rem;
   }
 `;
+
+const LogoContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-left: 30px;
+  align-items: center;
+  p{
+    margin: 0;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 24px;
+    white-space: nowrap;
+    @media (max-width: 768px) {
+      margin: 0;
+    }
+  }
+  button{
+    width: 80px;
+    height: 24px;
+    color: var(--color-sub-1);
+    background-color: var(--color-sub-4);
+    border: none;
+    border-radius: 30px;
+    text-align: center;
+    cursor: pointer;
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    margin: 0;
+    position: relative;
+  }
+`;
+
+
 const NavWrapper = styled.div`
   display: flex;
-  width: 400px;
+  max-width: 524px;
+  flex-grow: 1;
+  width: 100%;
   justify-content: space-between;
-  margin-right: 50px;
+  justify-self: end;
+  gap: 10px;
+  white-space: nowrap;
   @media (max-width: 768px) {
     display: none;
   }
@@ -40,7 +89,6 @@ const NavStyle = styled(NavLink)`
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  padding-right: 10px;
   color: white;
   font-weight: 600;
   font-size: 17px;
@@ -56,16 +104,17 @@ const NavStyle = styled(NavLink)`
 
 const InfoContainer = styled.div`
   display: flex;
-  margin: 0 60px 0 30px;
+  justify-content: center;
+  white-space: nowrap;
+  justify-self: end;
   button {
     font-size: 17px;
     font-weight: 600;
     background-color: black;
     color: white;
-    margin-right: 30px;
     border: none;
     cursor: pointer;
-
+    margin: 0;
     :hover {
       text-decoration: underline;
       text-decoration-color: var(--color-main-4);
@@ -123,36 +172,35 @@ const ButtonContainer = styled.div`
 const HamburgerWrapper = styled.div`
   display: none;
   width: 100%;
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
+  flex-direction: column;
+  color: white;
+  font-weight: 600;
+  font-size: 17px;
     text-align: center;
     align-items: center;
+    grid-area: menulist;
     svg {
       display: flex;
       align-items: flex-end;
     }
-  }
-`;
-
-const MenuWrapper = styled.div`
-  display: flex;
-  width: 400px;
-  margin-right: 50px;
-  align-items: center;
-
+    button{
+      height: 54px;
+    }
   @media (max-width: 768px) {
-    flex-direction: column;
-    width: 100%;
-    margin-right: 0;
+    display: flex;
   }
 `;
 
 const IconContainer = styled.div`
-  display: flex;
-  width: 100%;
   justify-content: flex-end;
   margin-right: 30px;
+  display: none;
+  position: absolute;
+  right: 0;
+  @media (max-width: 768px) {
+    justify-content: center;
+    display: flex;
+  }
 `;
 
 const NewAlertContainer = styled.div`
@@ -160,9 +208,8 @@ const NewAlertContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 85px;
+  width: 100%;
   height: 54px;
-
   button {
     font-size: 17px;
     font-weight: 600;
@@ -172,6 +219,7 @@ const NewAlertContainer = styled.div`
   }
   span {
     margin-left: 12px;
+    
   }
 `;
 
@@ -205,10 +253,23 @@ const Header = () => {
     { name: "마이페이지", path: "/mypage" }
   ];
 
+  const logout = () => {
+
+  }
+
   return (
     <Wrapper>
       {isLogIn ? (
         <HeaderContainer>
+
+          <LogoContainer>
+            <p>Let's Git It</p>
+            <button onClick={logout}>로그아웃</button>
+            <IconContainer>
+              <MenuIcon size={24} onClick={() => { setShowMenu(!showMenu)}} />
+            </IconContainer>
+          </LogoContainer>
+
           <NavWrapper>
             {headers.map((menu, index) => (
               <NavStyle to={menu.path} key={index}>
@@ -216,6 +277,7 @@ const Header = () => {
               </NavStyle>
             ))}
           </NavWrapper>
+
           <InfoContainer>
             <NewAlert className={newMessage ? "new" : ""} />
             <button onClick={() => navigate("/received/messages")}>쪽지</button>
@@ -223,32 +285,31 @@ const Header = () => {
             <button onClick={() => setShowNotice(true)}>알림</button>
           </InfoContainer>
 
-          <HamburgerWrapper>
-            <IconContainer>
-              <MenuIcon size={24} onClick={() => setShowMenu(!showMenu)} />
-            </IconContainer>{" "}
+          
+            
             {showMenu && (
-              <MenuWrapper>
-                {headers.map((menu, index) => (
-                  <NavStyle to={menu.path} key={index}>
-                    <p>{menu.name}</p>
-                  </NavStyle>
-                ))}
-                <NewAlertContainer>
-                  <button onClick={() => navigate("/received/messages")}>
-                    <span>쪽지</span>
-                  </button>
-                  <AlertIcon className={newMessage ? "new" : ""} />
-                </NewAlertContainer>
-                <NewAlertContainer>
-                  <button onClick={() => setShowNotice(!showMenu)}>
-                    <span>알림</span>
-                  </button>
-                  <AlertIcon className={newAlert ? "new" : ""} />
-                </NewAlertContainer>
-              </MenuWrapper>
+              <HamburgerWrapper>
+                  {headers.map((menu, index) => (
+                    <NavStyle to={menu.path} key={index}>
+                      <p>{menu.name}</p>
+                    </NavStyle>
+                  ))}
+                  <NewAlertContainer>
+                    <button onClick={() => navigate("/received/messages")}>
+                      <span>쪽지</span>
+                    </button>
+                    <AlertIcon className={newMessage ? "new" : ""} />
+                  </NewAlertContainer>
+                  <NewAlertContainer>
+                    <button onClick={() => setShowNotice(!showMenu)}>
+                      <span>알림</span>
+                    </button>
+                    <AlertIcon className={newAlert ? "new" : ""} />
+                  </NewAlertContainer>
+                  <button onClick={logout}>로그아웃</button>
+              </HamburgerWrapper>
             )}
-          </HamburgerWrapper>
+          
         </HeaderContainer>
       ) : (
         <HeaderContainer>

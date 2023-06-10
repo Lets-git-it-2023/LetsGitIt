@@ -2,34 +2,63 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 8px;
   align-items: center;
   background-color: var(--color-main-4);
   width: 100%;
   height: 100%;
-  padding: 0 10px;
-  box-sizing: border-box;
+  padding: 5px 10px;
   border-radius: 20px;
+  box-sizing: border-box;
   color: var(--color-sub-1);
   p {
     font-size: 16px;
     margin-bottom: 20px;
   }
+  @media (max-width: 768px) {
+    display: grid;
+    background-color: var(--color-sub-2);
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas: "graph" "hr" "commit";
+    justify-items: center;
+    padding: 0;
+  }
+`;
+
+const Line = styled.hr`
+  display: none;
+  grid-area: hr;
+  border: none;
+  width: 100%;
+  border-top: 1px solid var(--color-sub-3);
+  @media (max-width: 768px) {
+    display: block;
+  }
 `;
 
 const CommitContainer = styled.div`
-  width: 195px;
+  max-width: 195px;
   height: 83px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 15px 24px 7px 24px;
+  gap: 30px;
   box-sizing: border-box;
   background-color: var(--color-sub-2);
   margin-right: 5px;
   border-radius: 10px;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
+  @media (max-width: 768px) {
+    grid-area: commit;
+    padding: 0 10px;
+    width: 100%;
+    box-shadow: none;
+  }
 `;
 
 const CommitDetail = styled.div`
@@ -37,6 +66,7 @@ const CommitDetail = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 50%;
   p {
     margin: 0;
     font-size: 15px;
@@ -52,6 +82,9 @@ const ProgressBar = styled.div<{ width: number }>`
   height: 10px;
   position: relative;
   border-radius: 10px;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 
   &::before {
     content: "";
@@ -86,7 +119,8 @@ const Dot = styled.div`
 `;
 
 const LevelContainer = styled.div`
-  width: 283px;
+  max-width: 283px;
+  width: 100%;
   height: 83px;
   display: flex;
   align-items: center;
@@ -94,6 +128,14 @@ const LevelContainer = styled.div`
   position: relative;
   border-radius: 10px;
   background-color: var(--color-sub-2);
+  padding: 0 15px;
+  box-sizing: border-box;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
+  @media (max-width: 768px) {
+    flex-direction: column;
+    grid-area: graph;
+    box-shadow: none;
+  }
 `;
 
 const Text = styled.div`
@@ -110,7 +152,7 @@ const Text = styled.div`
   }
 `;
 
-const CommitLevel = () => {
+export const CommitLevel = () => {
   return (
     <Wrapper>
       <CommitContainer>
@@ -123,6 +165,7 @@ const CommitLevel = () => {
           <span>226</span>
         </CommitDetail>
       </CommitContainer>
+      <Line />
       <LevelContainer>
         <Text>
           <p>Lv.</p>
@@ -135,5 +178,3 @@ const CommitLevel = () => {
     </Wrapper>
   );
 };
-
-export default CommitLevel;
