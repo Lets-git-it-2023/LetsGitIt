@@ -3,9 +3,7 @@ import styled from "styled-components";
 import { ReactComponent as MedalIcon } from "../../../styles/Icons/MedalIcon.svg";
 
 const Wrapper = styled.div`
-  height: 348px;
-  width: 510px;
-  box-sizing: border-box;
+  width: 100%;
   background-color: var(--color-sub-2);
   color: var(--color-sub-1);
   padding: 20px;
@@ -18,25 +16,25 @@ const ToolContainer = styled.div`
   display: flex;
   flex-direction: row;
   font-size: 1.125rem;
-  width: 450px;
-  margin-left: 10px;
-  justify-content: space-between;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
 `;
+
 
 const Tool = styled.div`
   display: flex;
   height: 30px;
   align-items: center;
   border-left: 5px solid white;
-  padding-left: 8px;
+  padding: 0 8px;
   margin-top: 8px;
-
+  margin-left: 5px;
 `;
 
 const Medalcontainer = styled.div`
   display: inline-flex;
   justify-content: space-between;
-  margin-bottom: 15px;
   svg {
     margin-right: 10px;
     height: 60px;
@@ -46,30 +44,33 @@ const Medalcontainer = styled.div`
 const LanguageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 15px 0 15px 0;
-  display: flex;
+  width: 100%;
+  margin: 10px 0;
   flex-wrap: wrap;
 `;
 
 const Language = styled.div`
-  display: flex;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 35% 65%;
+  grid-template-rows: 1fr;
   align-items: center;
   margin-bottom: 12px;
   font-size: 1.25rem;
 
   span {
     margin-left: 10px;
-    width: 100px;
     display: inline-block;
   }
 `;
 
-interface ProgressBarProps {
-    width: number;
-  }
+const Graph = styled.div`
+  display: flex;
+  width: 100%;
+`;
   
-const ProgressBar = styled.div<ProgressBarProps>`
-  width: 360px;
+const ProgressBar = styled.div<{width: number}>`
+  width: 100%;
   height: 10px;
   position: relative;
   border-radius: 4px;
@@ -120,14 +121,16 @@ interface LanguageItemProps {
     return (
       <Language>
         <span>{name}</span>
+        <Graph>
         <ProgressBar width={percentage} />
         {percentage === 100 ? (
-          ""
+          null
         ) : (
           <DotContainer>
             <Dot />
           </DotContainer>
         )}
+        </Graph>
       </Language>
     );
   };

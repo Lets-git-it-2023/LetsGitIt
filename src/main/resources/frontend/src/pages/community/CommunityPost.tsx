@@ -10,43 +10,48 @@ import CommentList from "../../components/comment/CommentList";
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  min-height: 800px;
-  margin-bottom: 40px;
+  width: 100%;
 `;
 
 const PostBox = styled.div`
   display: grid;
-  grid-template-columns: minmax(auto, max-content) minmax(auto, 750px) minmax(
-      auto,
-      max-content
-    );
-  grid-template-rows: repeat(4, minmax(auto, max-content));
+  width: 100%;
+  max-width: 1280px;
+  grid-template-columns: 1fr 5fr 2fr;
+  grid-template-rows: repeat(4, auto);
   padding: 10px;
   background-color: var(--color-sub-2);
   border-radius: 20px;
+  column-gap: 40px;
   grid-template-areas:
     "header header header"
     "profile content side"
-    ". content ."
-    ". comment .";
+    "profile content ."
+    "profile comment .";
+  @media (max-width: 1000px) {
+    column-gap: 15px;
+  }
 `;
 
 const ProfileContainer = styled.div`
   grid-area: profile;
-  padding: 0 20px 0 20px;
+  padding: 0 20px;
+  height: 100%;
 `;
 
 const ContentContainer = styled.div`
   grid-area: content;
-
-  padding: 0 20px 0 20px;
+  padding: 0 20px;
+  width: 100%;
 `;
 
 const CommentContainer = styled.div`
   grid-area: comment;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 0 20px 0 20px;
+  padding: 0 20px;
+  margin-bottom: 40px;
   p {
     font-size: 16px;
     color: var(--color-sub-1);
@@ -57,14 +62,18 @@ const Head = styled.div`
   grid-area: header;
   margin-top: 40px;
   margin-bottom: 20px;
+  padding: 0 20px;
 `;
 
 const ButtonContainer = styled.div`
   grid-area: side;
+  width: 100%;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: left;
   justify-content: center;
+  gap: 10px;
 `;
 
 const Button = styled.button`
@@ -75,7 +84,6 @@ const Button = styled.button`
   border: none;
   height: 32px;
   text-align: center;
-  margin-right: 10px;
   border-radius: 10px;
   background-color: var(--color-sub-1);
   width: 88px;
@@ -137,6 +145,17 @@ const CommunityPost = () => {
     //edit page로 이동하기
   };
 
+  const writeComment = (comment: string) => {
+    let newComment = {
+      //profileImg: img,
+      username: "user1",
+      content: comment,
+      time: "2023.03.28 12:05",
+      reply: []
+    };
+    setComments([...comments, newComment]);
+  };
+
   return (
     <Wrapper>
       <PostBox>
@@ -150,19 +169,17 @@ const CommunityPost = () => {
           <PostContent />
         </ContentContainer>
         <CommentContainer>
-          <>
-            <p>댓글 {comments.length}개</p>
-            <CommentInputBox />
-            {comments.map((comment, idx) => (
-              <CommentList
-                key={idx}
-                username={comment.username}
-                content={comment.content}
-                time={comment.time}
-                reply={comment.reply}
-              />
-            ))}
-          </>
+          <p>댓글 {comments.length}개</p>
+          <CommentInputBox writeComment={writeComment} />
+          {comments.map((comment, idx) => (
+            <CommentList
+              key={idx}
+              username={comment.username}
+              content={comment.content}
+              time={comment.time}
+              reply={comment.reply}
+            />
+          ))}
         </CommentContainer>
         <ButtonContainer>
           <Button

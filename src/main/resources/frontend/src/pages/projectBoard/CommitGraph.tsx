@@ -82,6 +82,10 @@ const CommitBox = styled.div`
   }
 `;
 
+const InitialContainer = styled.div`
+  display: flex;
+`;
+
 const CommitGraph = ({ type }: { type: string }) => {
   const [initial, setInitial] = useState(false);
   const [title, setTitle] = useState("");
@@ -118,7 +122,9 @@ const CommitGraph = ({ type }: { type: string }) => {
       {initial ? (
         <CommitBox>
           {Array.from({ length: 3 }).map((_, index) =>
-            renderInitialCommitBars()
+          <InitialContainer key = {index}>
+            {renderInitialCommitBars()}
+          </InitialContainer>
           )}
         </CommitBox>
       ) : (
@@ -132,7 +138,9 @@ const CommitGraph = ({ type }: { type: string }) => {
           ))}
           {userState.length < 3 &&
             Array.from({ length: 3 - userState.length }).map((_, index) =>
-              renderInitialCommitBars()
+            <InitialContainer key = {index}>
+              {renderInitialCommitBars()}
+            </InitialContainer>
             )}
         </CommitBox>
       )}

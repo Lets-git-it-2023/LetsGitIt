@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, minmax(auto, max-content));
+  grid-template-columns: repeat(2, max-content);
   grid-template-rows: repeat(3, minmax(40px, max-content));
   align-items: center;
   column-gap: 30px;

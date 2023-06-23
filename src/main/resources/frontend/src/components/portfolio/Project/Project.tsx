@@ -6,13 +6,15 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 `;
 
 const ProjectItems = styled.div`
   display: flex;
+  padding: 0 10px;
   flex-wrap: wrap;
-  padding: 10px;
-  width: 810px;
+  row-gap: 30px;
+  margin-left: 30px;
 `;
 
 interface ProjectItemProps {
@@ -28,7 +30,10 @@ const ProjectItem = styled.div<ProjectItemProps>`
   border: solid 2px var(--color-sub-3);
   border-radius: 10px;
   flex-direction: column;
+  flex-basis: calc(50% - 30px);
+  margin-right: 30px;
   position: relative;
+  
   p {
     margin: 0px 0px 15px 0px;
     font-size: 1.25rem;

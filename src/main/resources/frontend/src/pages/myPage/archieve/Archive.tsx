@@ -9,6 +9,7 @@ const ArchieveWapper = styled.div`
   width: 100%;
   min-height: 350px;
   display: flex;
+  box-sizing: border-box;
   border-radius: 20px;
   background-color: var(--color-sub-2);
   color: var(--color-sub-1);

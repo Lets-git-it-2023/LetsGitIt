@@ -1,14 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { AiTwotoneMail, AiFillLinkedin, AiOutlineGithub } from "react-icons/ai";
-import { RxNotionLogo } from "react-icons/rx";
-import { SiVelog } from "react-icons/si";
+import { AiTwotoneMail } from "react-icons/ai";
 import UserLinks from "./UserLinks";
 
 const Wrapper = styled.div`
-  height: 348px;
-  width: 510px;
-  box-sizing: border-box;
+  width: 100%;
   background-color: var(--color-sub-2);
   color: var(--color-sub-3);
   padding: 40px 20px 20px 25px;
