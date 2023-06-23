@@ -1,11 +1,14 @@
 package com.proj.letsgitit.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Setter
@@ -99,6 +102,11 @@ public class User {
     @Column(name="role")
     @Enumerated(EnumType.STRING)
     private Role role;
+
+//    커뮤니티 글
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    private List<Community> communityList = new ArrayList<>();
 
     @Builder
     public User(String login, String name, long id, String htmlUrl, String email, Role role) {
