@@ -1,9 +1,7 @@
 package com.proj.letsgitit.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -25,5 +23,11 @@ public class CommunityScrap extends BaseTimeEntity{
     @JoinColumn(name="community_id")
     @JsonBackReference
     private Community community;
+
+    @Builder
+    public CommunityScrap(User user, Community community) {
+        this.user = user;
+        this.community = community;
+    }
 
 }
