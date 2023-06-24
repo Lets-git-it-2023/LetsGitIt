@@ -18,6 +18,7 @@ public class CommunityService {
     private final CommunityRepository communityRepository;
 
     public Long saveCommunity(User user, CommunityDto dto) {
+        dto.setCreatedBy(user.getName());
         Community community = communityRepository.save(dto.toEntity());
 
         community.setUser(user);
