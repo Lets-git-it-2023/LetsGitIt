@@ -7,6 +7,7 @@ import com.proj.letsgitit.entity.User;
 import com.proj.letsgitit.service.CommunityService;
 import com.proj.letsgitit.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/community")
+@Slf4j
 public class CommunityController {
 
     private final UserService userService;
@@ -30,8 +32,10 @@ public class CommunityController {
     // 게시글 등록
     @PostMapping("/post")
     public ResponseEntity saveCommunity(HttpServletRequest request, @RequestBody CommunityDto dto) {
+        log.info("=> 멤버 찾기 시작");
         User user = userService.getUser(request);
-
+        log.info("=> 멤버 찾음");
+        log.info("=> 서비스 호출");
         Long id = communityService.save(user, dto);
         return ResponseEntity.ok().body(id + " : 글이 등록되었습니다.");
     }

@@ -27,6 +27,7 @@ public class Community extends BaseTimeEntity{
     private String createdBy;
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int countVisit;     // 조회수
+    @Column(columnDefinition = "integer default 0", nullable = false)
     private int countComment;   // 댓글수
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int countScrap;     // 스크랩 수
@@ -45,10 +46,6 @@ public class Community extends BaseTimeEntity{
     @OneToMany(mappedBy = "community", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<CommunityScrap> communityScraps = new ArrayList<>();
-
-    public int getCountComment(){
-        return communityComments.size();
-    }
 
     public void updateVisit(int countVisit) {
         this.countVisit = countVisit;

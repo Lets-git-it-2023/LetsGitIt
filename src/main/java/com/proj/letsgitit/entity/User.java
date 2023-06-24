@@ -1,5 +1,6 @@
 package com.proj.letsgitit.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Builder;
 import lombok.Getter;
@@ -104,6 +105,7 @@ public class User {
     private Role role;
 
 //    커뮤니티 글
+    @JsonIgnoreProperties({"user"})
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<Community> communities = new ArrayList<>();
