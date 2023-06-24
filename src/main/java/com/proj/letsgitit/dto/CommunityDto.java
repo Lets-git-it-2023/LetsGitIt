@@ -1,12 +1,15 @@
 package com.proj.letsgitit.dto;
 
 import com.proj.letsgitit.entity.Community;
-import lombok.Builder;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class CommunityDto {
     private Long id;
     private String title;
@@ -14,12 +17,11 @@ public class CommunityDto {
     private String createdBy;
     private int countVisit;
 
-    @Builder
-    public CommunityDto(String title, String content, String createdBy, int countVisit) {
-        this.title = title;
-        this.content = content;
-        this.createdBy = createdBy;
-        this.countVisit = countVisit;
+    public Community toEntity() {
+        return Community.builder()
+                .title(title)
+                .content(content)
+                .build();
     }
 
     public CommunityDto(Community community) {
