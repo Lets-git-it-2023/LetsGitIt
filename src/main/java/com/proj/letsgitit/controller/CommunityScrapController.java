@@ -28,7 +28,7 @@ class CommunityScrapController {
         CommunityDto communityDto = communityService.findById(dto.getCommunityId());
         log.info("=> 원래 스크랩 수 : " + communityDto.getCountScrap());
         communityDto.setCountScrap(communityDto.getCountScrap() + 1);
-        log.info("=> 증가 스크랩 수 : " + communityDto.getCountScrap());
+        log.info("=> 생성 후 스크랩 수 : " + communityDto.getCountScrap());
         communityService.updateScrap(dto.getCommunityId(), communityDto);
 
         return ResponseEntity.ok().body("스크랩이 생성되었습니다.");
@@ -38,6 +38,13 @@ class CommunityScrapController {
     @DeleteMapping("/community/scrap")
     public ResponseEntity delete(@RequestBody CommunityScrapDto dto) {
         scrapService.delete(dto);
+
+        CommunityDto communityDto = communityService.findById(dto.getCommunityId());
+        log.info("=> 원래 스크랩 수 : " + communityDto.getCountScrap());
+        communityDto.setCountScrap(communityDto.getCountScrap() - 1);
+        log.info("=> 취소 후 스크랩 수 : " + communityDto.getCountScrap());
+        communityService.updateScrap(dto.getCommunityId(), communityDto);
+
         return ResponseEntity.ok().body("스크랩이 취소되었습니다.");
     }
 }
