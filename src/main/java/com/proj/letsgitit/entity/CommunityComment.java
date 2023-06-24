@@ -1,6 +1,7 @@
 package com.proj.letsgitit.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.proj.letsgitit.dto.CommunityCommentUpdateDto;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -30,7 +31,7 @@ public class CommunityComment extends BaseTimeEntity{
     
     // 일단 대댓글 없다고 가정하고 만듦
 
-//    public void update(CommunityCommentDto dto) {
-//        this.content = dto.getContent();
-//    }
+    public void update(CommunityCommentUpdateDto dto) {
+        this.content = dto.getContent();
+    }
 }
