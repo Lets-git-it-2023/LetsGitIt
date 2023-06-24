@@ -20,6 +20,8 @@ public class CommunityDto {
     private String content;
     private String createdBy;
     private int countVisit;
+    private int countComment;
+    private int countScrap;
     private LocalDateTime lastModifiedTime;
     private List<CommunityComment> comments;
 
@@ -38,6 +40,8 @@ public class CommunityDto {
         content = community.getContent();
         createdBy = community.getCreatedBy();
         countVisit = community.getCountVisit();
+        countComment = community.getCountComment();
+        countScrap = community.getCountScrap();
         lastModifiedTime = community.getLastModifiedTime();
         comments = community.getCommunityComments();
     }

@@ -25,7 +25,11 @@ public class Community extends BaseTimeEntity{
     private String content;
     private String createdBy;
     @Column(columnDefinition = "integer default 0", nullable = false)
-    private int countVisit;
+    private int countVisit;     // 조회수
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int countComment;   // 댓글수
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int countScrap;     // 스크랩 수
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id") // 외래키를 설정
@@ -39,6 +43,9 @@ public class Community extends BaseTimeEntity{
 
     public void updateVisit(int countVisit) {
         this.countVisit = countVisit;
+    }
+    public void updateScrap(int countScrap) {
+        this.countScrap = countScrap;
     }
 
 
