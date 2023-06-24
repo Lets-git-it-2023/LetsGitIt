@@ -31,7 +31,6 @@ public class CommunityCommentController {
                                @RequestBody CommunityCommentDto dto) {
         User user = userService.getUser(request);
         Community community = communityService.getCommunity(communityId);
-        dto.setCreatedBy(user.getName());
 
         Long id = communityCommentService.save(user, community, dto);
 

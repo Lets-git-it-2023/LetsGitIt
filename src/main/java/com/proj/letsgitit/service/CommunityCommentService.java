@@ -18,6 +18,7 @@ public class CommunityCommentService {
     private final CommunityCommentRepository communityCommentRepository;
 
     public Long save(User user, Community community, CommunityCommentDto dto) {
+        dto.setCreatedBy(user.getName());
         CommunityComment comment = communityCommentRepository.save(dto.toEntity());
 
         comment.setCommunity(community);
