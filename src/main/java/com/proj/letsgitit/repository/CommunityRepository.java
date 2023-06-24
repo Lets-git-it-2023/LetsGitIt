@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 public interface CommunityRepository extends JpaRepository<Community, Long> {
 
     @Query("SELECT count(*) from CommunityComment c where c.community.id = :id")
-    Long countByCommunityComments(@Param("id") Long id);
+    int countByCommunityComments(@Param("id") Long id);
 
 }

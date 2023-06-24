@@ -66,4 +66,11 @@ public class CommunityController {
 
         return ResponseEntity.ok().body(dto);
     }
+
+    @GetMapping("/count")
+    public ResponseEntity count(@RequestParam Long id) {
+        int count = communityService.count(id);
+
+        return ResponseEntity.ok().body(count);
+    }
 }

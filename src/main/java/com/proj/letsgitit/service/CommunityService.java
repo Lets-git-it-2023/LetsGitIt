@@ -71,4 +71,8 @@ public class CommunityService {
         Community community = communityRepository.findById(id).get();
         return community;
     }
+
+    public int count(Long id) {
+        return communityRepository.countByCommunityComments(id);
+    }
 }

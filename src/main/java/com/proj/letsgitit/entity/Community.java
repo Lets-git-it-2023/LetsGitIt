@@ -58,4 +58,11 @@ public class Community extends BaseTimeEntity{
         this.title = dto.getTitle();
         this.content = dto.getContent();
     }
+
+    public int getCountComment() {
+        if(communityComments != null)
+            return communityComments.size();
+        else
+            return 0;
+    }
 }
