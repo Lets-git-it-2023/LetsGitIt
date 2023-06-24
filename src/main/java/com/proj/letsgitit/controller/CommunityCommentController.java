@@ -9,12 +9,10 @@ import com.proj.letsgitit.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -35,5 +33,12 @@ public class CommunityCommentController {
         Long id = communityCommentService.save(user, community, dto);
 
         return ResponseEntity.ok().body(id + " : 댓글이 등록되었습니다.");
+    }
+
+    // 하나의 개시글에 달린 댓글 전체 조회
+    @GetMapping("/comments")
+    public ResponseEntity getComments(@PathVariable Long communityId) {
+        List<CommunityCommentDto> commentDtoList = communityCommentService.getCommentList(communityId);
+        return ResponseEntity.ok().body(commentDtoList);
     }
 }
