@@ -106,7 +106,12 @@ public class User {
 //    커뮤니티 글
     @OneToMany(mappedBy = "user")
     @JsonManagedReference
-    private List<Community> communityList = new ArrayList<>();
+    private List<Community> communities = new ArrayList<>();
+
+//    커뮤니티 댓글
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    private List<CommunityComment> communityComments = new ArrayList<>();
 
     @Builder
     public User(String login, String name, long id, String htmlUrl, String email, Role role) {

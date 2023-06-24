@@ -1,39 +1,32 @@
 package com.proj.letsgitit.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Setter
 @Getter
 @NoArgsConstructor
-@Table(name="comment")
-public class CommunityComment {
+@Table
+public class CommunityComment extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="comment_id")
-    int commentId;
-    @Column(name="commenter") //댓글 작성자 id
-    int commenter;
-    @Column(name="b_id") //글 id
-    int bId;
-    @CreatedDate
-    @Column(updatable = false, nullable = false, name="createdAt")
-    LocalDateTime createdAt;
-    @LastModifiedDate
-    @Column(name="updatedAt")
-    LocalDateTime updatedAt;
-    @Column(name="type")
-    int type; // 0이면 게시글, 1이면 팀매칭
-    @Column(name="parent_comment") //부모 댓글인지 구분
-    int parentComment; // 대댓글이면 0 부모 댓글이면 1
-    @Column(name="parent_comment_id")
-    int parentCommentId; // 대댓글의 부모 댓글 id
-
+    @Column(name="community_comment_id")
+    private Long id;
+    private String content;
+    private String createdBy; // 댓글 작성자
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id") // 외래키를 설정
+    @JsonBackReference
+    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "community_id") // 외래키를 설정
+    @JsonBackReference
+    private Community community;
+    
+    // 일단 대댓글 없다고 가정하고 만듦
 }

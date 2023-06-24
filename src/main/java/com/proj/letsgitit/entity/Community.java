@@ -1,6 +1,7 @@
 package com.proj.letsgitit.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.proj.letsgitit.dto.CommunityUpdateDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -29,12 +32,16 @@ public class Community extends BaseTimeEntity{
     @JoinColumn(name = "user_id") // 외래키를 설정
     @JsonBackReference
     private User user;
-    
-    //댓글 추가해야함
+
+    // 댓글
+    @OneToMany(mappedBy = "community")
+    @JsonManagedReference
+    private List<CommunityComment> communityComments = new ArrayList<>();
 
     public void updateVisit(int countVisit) {
         this.countVisit = countVisit;
     }
+
 //    @Builder
 //    public Community(CommunityDto dto) {
 //        this.title = dto.getTitle();
@@ -50,7 +57,7 @@ public class Community extends BaseTimeEntity{
         this.createdBy = createdBy;
         this.countVisit = countVisit;
         if (this.user != null) {
-            user.getCommunityList().remove(this);
+            user.getCommunities().remove(this);
         }
     }
 
