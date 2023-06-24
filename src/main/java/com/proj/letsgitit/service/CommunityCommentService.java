@@ -1,6 +1,7 @@
 package com.proj.letsgitit.service;
 
 import com.proj.letsgitit.dto.CommunityCommentDto;
+import com.proj.letsgitit.dto.CommunityCommentUpdateDto;
 import com.proj.letsgitit.entity.Community;
 import com.proj.letsgitit.entity.CommunityComment;
 import com.proj.letsgitit.entity.User;
@@ -29,7 +30,24 @@ public class CommunityCommentService {
 
         return community.getId();
     }
+    
+    // 댓글 수정
+    public Long update(Long id, CommunityCommentUpdateDto dto) {
+        CommunityComment comment = communityCommentRepository.findById(id).orElseThrow((() ->
+                        new IllegalStateException("해당 댓글이 존재하지 않습니다."))
+        );
+        comment.update(dto);
+        return comment.getId();
+    }
 
+    // 댓글 삭제
+    public Long delete(Long id) {
+        CommunityComment comment = communityCommentRepository.findById(id).orElseThrow((() ->
+                new IllegalStateException("해당 댓글이 존재하지 않습니다."))
+        );
+        communityCommentRepository.delete(comment);
+        return id;
+    }
     // 게시글에 달린 댓글 전체 조회
     public List<CommunityCommentDto> getCommentList(Long id) {
         List<CommunityComment> communityComments = communityCommentRepository.findByCommunity_IdOrderByCreatedTime(id);
