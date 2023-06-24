@@ -18,15 +18,10 @@ public class CommunityService {
     private final CommunityRepository communityRepository;
 
     public Long saveCommunity(User user, CommunityDto dto) {
-        Community community = Community.builder()
-                .title(dto.getTitle())
-                .content(dto.getContent())
-                .createdBy(dto.getCreatedBy())
-                .user(user)
-                .countVisit(dto.getCountVisit())
-                .build();
+        dto.setCreatedBy(user.getName());
+        Community community = communityRepository.save(dto.toEntity());
 
-        communityRepository.save(community);
+        community.setUser(user);
         return community.getId();
     }
 
@@ -60,5 +55,10 @@ public class CommunityService {
         Community community = communityRepository.findById(id).get();
         CommunityDto dto = new CommunityDto(community);
         return dto;
+    }
+
+    public Community getCommunity(Long id) {
+        Community community = communityRepository.findById(id).get();
+        return community;
     }
 }

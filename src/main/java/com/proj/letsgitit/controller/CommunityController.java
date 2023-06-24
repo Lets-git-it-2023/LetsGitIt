@@ -31,7 +31,7 @@ public class CommunityController {
     @PostMapping("/post")
     public ResponseEntity saveCommunity(HttpServletRequest request, @RequestBody CommunityDto dto) {
         User user = userService.getUser(request);
-        dto.setCreatedBy(user.getName());
+
         Long id = communityService.saveCommunity(user, dto);
         return ResponseEntity.ok().body(id + " : 글이 등록되었습니다.");
     }
