@@ -104,17 +104,17 @@ public class User {
     private Role role;
 
 //    커뮤니티 글
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<Community> communities = new ArrayList<>();
 
 //    커뮤니티 댓글
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<CommunityComment> communityComments = new ArrayList<>();
 
 //    북마크
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<CommunityScrap> communityScraps = new ArrayList<>();
 

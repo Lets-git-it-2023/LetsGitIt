@@ -10,8 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -47,19 +45,6 @@ public class CommunityCommentService {
         );
         communityCommentRepository.delete(comment);
         return id;
-    }
-    // 게시글에 달린 댓글 전체 조회
-    public List<CommunityCommentDto> getCommentList(Long id) {
-        List<CommunityComment> communityComments = communityCommentRepository.findByCommunity_IdOrderByCreatedTime(id);
-
-        List<CommunityCommentDto> dtoList = new ArrayList<>();
-
-        for(CommunityComment comment : communityComments) {
-            CommunityCommentDto commentDto = new CommunityCommentDto(comment);
-
-            dtoList.add(commentDto);
-        }
-        return dtoList;
     }
 
 }

@@ -22,11 +22,11 @@ public class Community extends BaseTimeEntity{
     @Column(name = "community_id")
     private Long id;
     private String title;
+    @Lob //대용량 데이터
     private String content;
     private String createdBy;
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int countVisit;     // 조회수
-    @Column(columnDefinition = "integer default 0", nullable = false)
     private int countComment;   // 댓글수
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int countScrap;     // 스크랩 수
@@ -37,9 +37,18 @@ public class Community extends BaseTimeEntity{
     private User user;
 
     // 댓글
-    @OneToMany
+    @OneToMany(mappedBy = "community", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<CommunityComment> communityComments = new ArrayList<>();
+
+    // 스크랩
+    @OneToMany(mappedBy = "community", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<CommunityScrap> communityScraps = new ArrayList<>();
+
+    public int getCountComment(){
+        return communityComments.size();
+    }
 
     public void updateVisit(int countVisit) {
         this.countVisit = countVisit;
@@ -47,7 +56,6 @@ public class Community extends BaseTimeEntity{
     public void updateScrap(int countScrap) {
         this.countScrap = countScrap;
     }
-
 
     public void update(CommunityUpdateDto dto) {
         this.title = dto.getTitle();
