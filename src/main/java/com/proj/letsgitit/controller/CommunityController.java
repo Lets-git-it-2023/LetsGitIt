@@ -32,20 +32,20 @@ public class CommunityController {
     public ResponseEntity saveCommunity(HttpServletRequest request, @RequestBody CommunityDto dto) {
         User user = userService.getUser(request);
 
-        Long id = communityService.saveCommunity(user, dto);
+        Long id = communityService.save(user, dto);
         return ResponseEntity.ok().body(id + " : 글이 등록되었습니다.");
     }
 
     // 게시글 수정
     @PutMapping("/{id}")
     public ResponseEntity updateCommunity(@PathVariable Long id, @RequestBody CommunityUpdateDto dto) {
-        Long communityId = communityService.updateCommunity(id, dto);
+        Long communityId = communityService.update(id, dto);
         return ResponseEntity.ok().body(communityId + ": 글이 수정되었습니다.");
     }
     // 게시글 삭제
     @DeleteMapping("/{id}")
     public ResponseEntity deleteCommunity(@PathVariable Long id) {
-        Long result = communityService.deleteCommunity(id);
+        Long result = communityService.delete(id);
         return ResponseEntity.ok().body(result + ": 글이 삭제되었습니다.");
     }
 

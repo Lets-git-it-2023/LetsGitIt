@@ -17,7 +17,7 @@ import java.util.List;
 public class CommunityService {
     private final CommunityRepository communityRepository;
 
-    public Long saveCommunity(User user, CommunityDto dto) {
+    public Long save(User user, CommunityDto dto) {
         dto.setCreatedBy(user.getName());
         Community community = communityRepository.save(dto.toEntity());
 
@@ -25,7 +25,7 @@ public class CommunityService {
         return community.getId();
     }
 
-    public Long updateCommunity(Long id, CommunityUpdateDto dto) {
+    public Long update(Long id, CommunityUpdateDto dto) {
         Community community = communityRepository.findById(id).orElseThrow((() ->
                 new IllegalStateException("해당 게시글이 존재하지 않습니다.")));
         community.update(dto);
@@ -43,8 +43,14 @@ public class CommunityService {
 
         community.updateVisit(dto.getCountVisit());
     }
+    public void updateScrap(Long id, CommunityDto dto) {
+        Community community = communityRepository.findById(id).orElseThrow((() ->
+                new IllegalStateException("해당 게시글이 존재하지 않습니다.")));
 
-    public Long deleteCommunity(Long id) {
+        community.updateScrap(dto.getCountScrap());
+    }
+
+    public Long delete(Long id) {
         Community community = communityRepository.findById(id).orElseThrow((() ->
                 new IllegalStateException("해당 게시글이 존재하지 않습니다.")));
         communityRepository.delete(community);

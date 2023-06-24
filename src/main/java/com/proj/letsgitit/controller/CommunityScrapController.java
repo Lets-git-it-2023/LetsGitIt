@@ -1,5 +1,6 @@
 package com.proj.letsgitit.controller;
 
+import com.proj.letsgitit.dto.CommunityDto;
 import com.proj.letsgitit.dto.CommunityScrapDto;
 import com.proj.letsgitit.service.CommunityScrapService;
 import com.proj.letsgitit.service.CommunityService;
@@ -24,6 +25,12 @@ class CommunityScrapController {
     @PostMapping("/community/scrap")
     public ResponseEntity save(@RequestBody CommunityScrapDto dto) throws Exception {
         scrapService.save(dto);
+        CommunityDto communityDto = communityService.findById(dto.getCommunityId());
+        log.info("=> 원래 스크랩 수 : " + communityDto.getCountScrap());
+        communityDto.setCountScrap(communityDto.getCountScrap() + 1);
+        log.info("=> 생성 후 스크랩 수 : " + communityDto.getCountScrap());
+        communityService.updateScrap(dto.getCommunityId(), communityDto);
+
         return ResponseEntity.ok().body("스크랩이 생성되었습니다.");
     }
 
@@ -31,6 +38,13 @@ class CommunityScrapController {
     @DeleteMapping("/community/scrap")
     public ResponseEntity delete(@RequestBody CommunityScrapDto dto) {
         scrapService.delete(dto);
+
+        CommunityDto communityDto = communityService.findById(dto.getCommunityId());
+        log.info("=> 원래 스크랩 수 : " + communityDto.getCountScrap());
+        communityDto.setCountScrap(communityDto.getCountScrap() - 1);
+        log.info("=> 취소 후 스크랩 수 : " + communityDto.getCountScrap());
+        communityService.updateScrap(dto.getCommunityId(), communityDto);
+
         return ResponseEntity.ok().body("스크랩이 취소되었습니다.");
     }
 }
