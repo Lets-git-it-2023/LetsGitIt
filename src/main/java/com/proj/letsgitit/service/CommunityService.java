@@ -6,6 +6,7 @@ import com.proj.letsgitit.entity.Community;
 import com.proj.letsgitit.entity.User;
 import com.proj.letsgitit.repository.CommunityRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -14,14 +15,17 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class CommunityService {
     private final CommunityRepository communityRepository;
 
     public Long save(User user, CommunityDto dto) {
         dto.setCreatedBy(user.getName());
+        log.info("=> 작성자 이름 저장");
         Community community = communityRepository.save(dto.toEntity());
-
+        log.info("=> 글 저장");
         community.setUser(user);
+        log.info("=> 멤버 저장");
         return community.getId();
     }
 
@@ -66,5 +70,9 @@ public class CommunityService {
     public Community getCommunity(Long id) {
         Community community = communityRepository.findById(id).get();
         return community;
+    }
+
+    public int count(Long id) {
+        return communityRepository.countByCommunityComments(id);
     }
 }
