@@ -113,6 +113,11 @@ public class User {
     @JsonManagedReference
     private List<CommunityComment> communityComments = new ArrayList<>();
 
+//    북마크
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    private List<CommunityScrap> communityScraps = new ArrayList<>();
+
     @Builder
     public User(String login, String name, long id, String htmlUrl, String email, Role role) {
         this.login = login;
