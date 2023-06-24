@@ -28,7 +28,7 @@ class CommunityScrapController {
     }
 
     // 북마크 취소
-    @DeleteMapping("/scrap")
+    @DeleteMapping("/community/scrap")
     public ResponseEntity delete(@RequestBody CommunityScrapDto dto) {
         scrapService.delete(dto);
         return ResponseEntity.ok().body("스크랩이 취소되었습니다.");
