@@ -46,14 +46,13 @@ public class CommunityCommentController {
 
     // 댓글 삭제
     @DeleteMapping("community/comments/{id}")
-    public ResponseEntity delete(@PathVariable Long communityId,
-                                 @PathVariable Long id) {
+    public ResponseEntity delete(@PathVariable Long id) {
         Long commentId = communityCommentService.delete(id);
         return ResponseEntity.ok().body(commentId + " : 댓글이 삭제되었습니다.");
     }
 
     // 하나의 개시글에 달린 댓글 전체 조회
-    @GetMapping("/comments")
+    @GetMapping("/community/{communityId}/comments")
     public ResponseEntity getComments(@PathVariable Long communityId) {
         List<CommunityCommentDto> commentDtoList = communityCommentService.getCommentList(communityId);
         return ResponseEntity.ok().body(commentDtoList);
