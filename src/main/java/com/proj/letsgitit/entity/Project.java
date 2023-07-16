@@ -1,6 +1,7 @@
 package com.proj.letsgitit.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.proj.letsgitit.dto.ProjectUpdateDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -40,4 +41,13 @@ public class Project extends BaseTimeEntity { // 진행중인 프로젝트 게�
     @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<UserProject> userProjects = new ArrayList<>(); //소속된 팀원 및 팀장
+
+    public void update(ProjectUpdateDto dto) {
+        this.title = dto.getTitle();
+        this.content = dto.getContent();
+        this.meetingType = dto.getMeetingType();
+        this.region = dto.getRegion();
+        this.notionUrl = dto.getNotionUrl();
+        this.githubUrl = dto.getGithubUrl();
+    }
 }

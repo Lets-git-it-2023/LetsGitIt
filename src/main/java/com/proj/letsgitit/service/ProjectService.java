@@ -1,6 +1,7 @@
 package com.proj.letsgitit.service;
 
 import com.proj.letsgitit.dto.ProjectCreateDto;
+import com.proj.letsgitit.dto.ProjectUpdateDto;
 import com.proj.letsgitit.entity.Project;
 import com.proj.letsgitit.entity.User;
 import com.proj.letsgitit.entity.UserProject;
@@ -57,5 +58,14 @@ public class ProjectService {
                 new IllegalStateException("해당 프로젝트가 존재하지 않습니다.")));
 
         return project;
+    }
+
+    // 프로젝트 수정
+    public Long update(Long id, ProjectUpdateDto dto) {
+        Project project = projectRepository.findById(id).orElseThrow((() ->
+                new IllegalStateException("해당 프로젝트가 존재하지 않습니다.")));
+        project.update(dto);
+
+        return project.getId();
     }
 }
