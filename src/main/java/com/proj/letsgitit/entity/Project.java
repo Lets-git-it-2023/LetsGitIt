@@ -17,7 +17,8 @@ public class Project extends BaseTimeEntity { // 진행중인 프로젝트 게�
     private Long id;
     private String title; //프로젝트 제목
     private String content;
-    private Long leader; // 팀장 아이디
+    @Column(name = "leader_id")
+    private Long leaderId; // 팀장 아이디
     @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<Language> languages = new ArrayList<>();
@@ -32,5 +33,7 @@ public class Project extends BaseTimeEntity { // 진행중인 프로젝트 게�
     @Column(name="notion_url")
     private String notionUrl;
 
-
+    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<User> users = new ArrayList<>(); //소속된 팀원 및 팀장
 }
