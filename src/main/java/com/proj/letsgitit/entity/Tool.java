@@ -1,5 +1,6 @@
 package com.proj.letsgitit.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,4 +18,8 @@ public class Tool {
     @Column(name = "tool_id")
     private Long id;
     private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id") // 외래키를 설정
+    @JsonBackReference
+    private Project project;
 }
