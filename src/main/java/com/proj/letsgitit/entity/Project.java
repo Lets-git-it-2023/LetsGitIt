@@ -13,7 +13,7 @@ import java.util.List;
 public class Project extends BaseTimeEntity { // 진행중인 프로젝트 게시판
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="team_id")
+    @Column(name="project_id")
     private long id;
     private String title; //프로젝트 제목
     private String content;
