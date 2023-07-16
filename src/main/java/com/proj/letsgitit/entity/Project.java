@@ -14,7 +14,7 @@ public class Project extends BaseTimeEntity { // 진행중인 프로젝트 게�
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="project_id")
-    private long id;
+    private Long id;
     private String title; //프로젝트 제목
     private String content;
     private Long leader; // 팀장 아이디
@@ -24,5 +24,13 @@ public class Project extends BaseTimeEntity { // 진행중인 프로젝트 게�
     @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<Tool> tools = new ArrayList<>();
+    private String region;
+    @Column(name="meeting_type")
+    private String meetingType;
+    @Column(name="github_url")
+    private String githubUrl;
+    @Column(name="notion_url")
+    private String notionUrl;
+
 
 }
