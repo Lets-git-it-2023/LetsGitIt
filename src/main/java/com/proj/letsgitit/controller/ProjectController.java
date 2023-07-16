@@ -1,6 +1,7 @@
 package com.proj.letsgitit.controller;
 
 import com.proj.letsgitit.dto.ProjectCreateDto;
+import com.proj.letsgitit.dto.ProjectUpdateDto;
 import com.proj.letsgitit.entity.Project;
 import com.proj.letsgitit.service.ProjectService;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +28,13 @@ public class ProjectController {
     public ResponseEntity create(@RequestBody ProjectCreateDto dto) {
         Long id = projectService.create(dto);
         return ResponseEntity.ok().body(id + ": 프로젝트가 생성되었습니다.");
+    }
+
+    // 프로젝트 수정
+    @PutMapping("/{id}")
+    public ResponseEntity update(@RequestBody ProjectUpdateDto dto,
+                                 @PathVariable Long id) {
+        projectService.update(id, dto);
+        return ResponseEntity.ok().body(id + ": 프로젝트가 수정되었습니다.");
     }
 }
