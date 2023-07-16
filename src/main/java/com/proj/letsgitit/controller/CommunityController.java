@@ -26,6 +26,7 @@ public class CommunityController {
     // 전체 게시글 조회
     @GetMapping("")
     public ResponseEntity getAllCommunity() {
+
         return ResponseEntity.ok().body(communityService.findAll());
     }
 
