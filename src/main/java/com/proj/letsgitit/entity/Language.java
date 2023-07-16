@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Builder
 public class Language { // 사용 언어 및 툴
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +22,4 @@ public class Language { // 사용 언어 및 툴
     @JoinColumn(name = "project_id") // 외래키를 설정
     @JsonBackReference
     private Project project;
-    @Builder
-    public Language(String name) {
-        this.name = name;
-    }
 }
