@@ -1,15 +1,19 @@
 package com.proj.letsgitit.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table
+@Getter
+@Setter
 @NoArgsConstructor
-@Table(name="project")
+@AllArgsConstructor
+@Builder
 public class Project extends BaseTimeEntity { // 진행중인 프로젝트 게시판
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
