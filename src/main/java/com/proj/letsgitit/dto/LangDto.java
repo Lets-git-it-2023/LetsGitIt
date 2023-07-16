@@ -12,7 +12,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LangDto {
     private String name;
-
     public Language toEntity() {
         return Language.builder()
                 .name(name)

@@ -120,6 +120,11 @@ public class User {
     @JsonManagedReference
     private List<CommunityScrap> communityScraps = new ArrayList<>();
 
+    // 프로젝트
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    private List<UserProject> userProjects = new ArrayList<>();
+
     @Builder
     public User(String login, String name, long id, String htmlUrl, String email, Role role) {
         this.login = login;
