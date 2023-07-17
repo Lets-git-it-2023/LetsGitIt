@@ -25,12 +25,10 @@ public class Project extends BaseTimeEntity { // 진행중인 프로젝트 게�
     private String content;
     @Column(name = "leader_id")
     private Long leaderId; // 팀장 아이디
-    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
-    private List<Language> languages = new ArrayList<>();
-    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
-    private List<Tool> tools = new ArrayList<>();
+    @ElementCollection
+    private List<String> languages;
+    @ElementCollection
+    private List<String> tools;
     private String region;
     private LocalDateTime completeDate; // 목표완료일
     @Column(name="project_type1")
@@ -49,6 +47,8 @@ public class Project extends BaseTimeEntity { // 진행중인 프로젝트 게�
     public void update(ProjectUpdateDto dto) {
         this.title = dto.getTitle();
         this.content = dto.getContent();
+        this.languages = dto.getLanguages();
+        this.tools = dto.getTools();
         this.completeDate = dto.getCompleteDate();
         this.projectType1 = dto.getProjectType1();
         this.projectType2 = dto.getProjectType2();

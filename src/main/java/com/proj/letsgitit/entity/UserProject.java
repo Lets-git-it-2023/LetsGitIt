@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserProject {
+public class UserProject { // 프로젝트와 유저의 관계
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_project_id")
