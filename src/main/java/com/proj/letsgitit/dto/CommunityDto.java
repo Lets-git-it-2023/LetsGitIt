@@ -1,14 +1,12 @@
 package com.proj.letsgitit.dto;
 
 import com.proj.letsgitit.entity.Community;
-import com.proj.letsgitit.entity.CommunityComment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -23,7 +21,6 @@ public class CommunityDto {
     private int countComment;
     private int countScrap;
     private LocalDateTime lastModifiedTime;
-    private List<CommunityComment> comments;
 
     public Community toEntity() {
         return Community.builder()
@@ -43,7 +40,6 @@ public class CommunityDto {
         countComment = community.getCountComment();
         countScrap = community.getCountScrap();
         lastModifiedTime = community.getLastModifiedTime();
-        comments = community.getCommunityComments();
     }
 
     public void updateVisit(int countVisit) {
