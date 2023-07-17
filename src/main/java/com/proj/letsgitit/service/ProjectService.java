@@ -56,7 +56,6 @@ public class ProjectService {
     public Project findById(Long id) {
         Project project = projectRepository.findById(id).orElseThrow((() ->
                 new IllegalStateException("해당 프로젝트가 존재하지 않습니다.")));
-
         return project;
     }
 

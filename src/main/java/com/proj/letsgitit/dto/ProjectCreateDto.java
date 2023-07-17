@@ -17,11 +17,15 @@ public class ProjectCreateDto {
     private String title;
     private Long leaderId;
     private List<Long> users;
+    private List<String> languages;
+    private List<String> tools;
 
     public Project toEntity() {
         return Project.builder()
                 .title(title)
                 .leaderId(leaderId)
+                .languages(languages)
+                .tools(tools)
                 .build();
     }
 }
