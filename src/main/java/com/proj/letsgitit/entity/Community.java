@@ -39,12 +39,12 @@ public class Community extends BaseTimeEntity{
 
     // 댓글
     @OneToMany(mappedBy = "community", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
+    @JsonManagedReference(value = "community")
     private List<CommunityComment> communityComments = new ArrayList<>();
 
     // 스크랩
     @OneToMany(mappedBy = "community", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
+    @JsonManagedReference(value = "community")
     private List<CommunityScrap> communityScraps = new ArrayList<>();
 
     public void updateVisit(int countVisit) {
