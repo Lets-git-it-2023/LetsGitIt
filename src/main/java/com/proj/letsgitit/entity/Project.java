@@ -45,6 +45,9 @@ public class Project extends BaseTimeEntity { // 진행중인 프로젝트 게�
     @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<UserProject> userProjects = new ArrayList<>(); //소속된 팀원 및 팀장
+    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
+    private List<ProjectChat> projectChats = new ArrayList<>(); // 프로젝트 채팅
 
     public void update(ProjectUpdateDto dto) {
         this.title = dto.getTitle();
