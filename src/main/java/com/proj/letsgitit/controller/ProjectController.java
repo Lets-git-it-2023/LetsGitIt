@@ -1,6 +1,7 @@
 package com.proj.letsgitit.controller;
 
 import com.proj.letsgitit.dto.ProjectChatDto;
+import com.proj.letsgitit.dto.ProjectChatUpdateDto;
 import com.proj.letsgitit.dto.ProjectCreateDto;
 import com.proj.letsgitit.dto.ProjectUpdateDto;
 import com.proj.letsgitit.entity.Project;
@@ -67,5 +68,13 @@ public class ProjectController {
 
         Long result = chatService.save(user, project, dto);
         return ResponseEntity.ok().body(result + ": 채팅이 등록되었습니다.");
+    }
+    
+    // 채팅 수정
+    @PutMapping("/chat/{id}")
+    public ResponseEntity update(@PathVariable Long id,
+                                 @RequestBody ProjectChatUpdateDto dto) {
+        Long result = chatService.update(id, dto);
+        return ResponseEntity.ok().body(result + " : 채팅이 수정되었습니다.");
     }
 }

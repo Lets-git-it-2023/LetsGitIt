@@ -1,6 +1,7 @@
 package com.proj.letsgitit.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.proj.letsgitit.dto.ProjectChatUpdateDto;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -28,4 +29,8 @@ public class ProjectChat extends BaseTimeEntity{
     @JoinColumn(name = "project_id") // 외래키를 설정
     @JsonBackReference
     private Project project;
+
+    public void update(ProjectChatUpdateDto dto) {
+        this.content = dto.getContent();
+    }
 }

@@ -1,6 +1,7 @@
 package com.proj.letsgitit.service;
 
 import com.proj.letsgitit.dto.ProjectChatDto;
+import com.proj.letsgitit.dto.ProjectChatUpdateDto;
 import com.proj.letsgitit.entity.Project;
 import com.proj.letsgitit.entity.ProjectChat;
 import com.proj.letsgitit.entity.User;
@@ -28,6 +29,16 @@ public class ProjectChatService {
 
         return project.getId();
     }
+    // 채팅 수정
+    public Long update(Long id, ProjectChatUpdateDto dto) {
+        ProjectChat chat = projectChatRepository.findById(id).orElseThrow((() ->
+                new IllegalStateException("해당 채팅이 존재하지 않습니다."))
+        );
+        chat.update(dto);
+        return chat.getId();
+    }
+    // 채팅 삭제
+
     // 프로젝트의 전체 채팅 내열 조회
     public List<ProjectChatDto> getChats(Long id) {
         List<ProjectChat> chats = projectChatRepository.findByProject_IdOrderByCreatedTimeAsc(id);
