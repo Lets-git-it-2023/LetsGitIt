@@ -8,11 +8,14 @@ import com.proj.letsgitit.service.CommunityService;
 import com.proj.letsgitit.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,9 +28,15 @@ public class CommunityController {
 
     // 전체 게시글 조회
     @GetMapping("")
-    public ResponseEntity getAllCommunity() {
+    public ResponseEntity<Object> getAllCommunity(@RequestParam(required = false, defaultValue = "", value = "searchText") String searchText,
+                                                  @RequestParam(required = false, defaultValue = "0", value = "page") int page,
+                                                  @RequestParam(required = false, defaultValue = "0", value="sortType") int sortType) {
+        Page<Community> communityList = communityService.findCommunity(searchText, searchText, page, sortType);
+        int totalPage = communityList.getTotalPages();
 
-        return ResponseEntity.ok().body(communityService.findAll());
+        Map<String, Object> result = new HashMap<>();
+        result.put("communityList", communityList);
+        return ResponseEntity.ok().body(communityList);
     }
 
     // 게시글 등록
