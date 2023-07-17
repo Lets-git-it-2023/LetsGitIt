@@ -5,6 +5,7 @@ import com.proj.letsgitit.dto.ProjectUpdateDto;
 import com.proj.letsgitit.entity.Project;
 import com.proj.letsgitit.service.ProjectService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,17 @@ import org.springframework.web.bind.annotation.*;
 public class ProjectController {
     private final ProjectService projectService;
 
-    // 프로젝트 조회
+    // 프로젝트 게시판 조회
+    @GetMapping("")
+    public ResponseEntity<Object> getAll(@RequestParam(required = false, defaultValue = "", value = "searchText") String searchText,
+                                         @RequestParam(required = false, defaultValue = "0", value = "page") int page,
+                                         @RequestParam(required = false, defaultValue = "0", value="sortType") int sortType) {
+        Page<Project> projects = projectService.findAll(searchText, searchText, page, sortType);
+
+        return ResponseEntity.ok().body(projects);
+    }
+
+    // 프로젝트 1개 조회
     @GetMapping("/{id}")
     public ResponseEntity find(@PathVariable Long id) {
         Project project = projectService.findById(id);

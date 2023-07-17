@@ -39,7 +39,9 @@ public class Project extends BaseTimeEntity { // 진행중인 프로젝트 게�
     private String githubUrl;
     @Column(name="notion_url")
     private String notionUrl;
-
+//    조회수
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int countVisit;
     @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
     @JsonManagedReference
     private List<UserProject> userProjects = new ArrayList<>(); //소속된 팀원 및 팀장
@@ -55,5 +57,9 @@ public class Project extends BaseTimeEntity { // 진행중인 프로젝트 게�
         this.region = dto.getRegion();
         this.notionUrl = dto.getNotionUrl();
         this.githubUrl = dto.getGithubUrl();
+    }
+
+    public void updateVisit(int countVisit) {
+        this.countVisit = countVisit;
     }
 }

@@ -37,10 +37,7 @@ public class CommunityController {
                                                   @RequestParam(required = false, defaultValue = "0", value = "page") int page,
                                                   @RequestParam(required = false, defaultValue = "0", value="sortType") int sortType) {
         Page<Community> communityList = communityService.findCommunity(searchText, searchText, page, sortType);
-        int totalPage = communityList.getTotalPages();
 
-        Map<String, Object> result = new HashMap<>();
-        result.put("communityList", communityList);
         return ResponseEntity.ok().body(communityList);
     }
 
